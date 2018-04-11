@@ -17,9 +17,9 @@ def production():
             (last_siteID,lastBackgroundID,count) = (siteID,backgroundID,count+int(val))
 
     if(last_siteID and lastBackgroundID):
-        couuniqueIndividualsnt+=1
+        uniqueIndividuals+=1
         reducerOutput(last_siteID,lastBackgroundID,count)
-    print uniqueIndividuals
+    print "count: ",uniqueIndividuals
 
 def reducerOutput(siteID, backgroundID, num):
     print "%s\t%s\t%s" % (siteID,backgroundID,num)
@@ -41,4 +41,4 @@ def local():
             uniqueIndividuals+=1
             reducerOutput(last_siteID,lastBackgroundID,count)
     print "count: ", uniqueIndividuals
-local()
+production()
