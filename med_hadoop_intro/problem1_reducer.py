@@ -11,7 +11,6 @@ def production():
         (key, val) = line.strip().split("\t")
         if last_key and last_key!=key:
             uniqueIndividuals+=1
-            reducerOutput(last_key,count)
             (last_key,count) = (key,int(val))
         else:
             (last_key,count) = (key,count+int(val))
