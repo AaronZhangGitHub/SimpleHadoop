@@ -6,39 +6,39 @@ import sys
 
 def production():
     uniqueIndividuals = 0
-    (last_siteID, lastBackgroundID, count) = (None, None, 0)
+    (last_key, count) = (None, 0)
     for line in sys.stdin:
-        (siteID, backgroundID, val) = line.strip().split("\t")
-        if last_siteID and lastBackgroundID and (last_siteID!=siteID or lastBackgroundID!=backgroundID):
+        (key, val) = line.strip().split("\t")
+        if last_key and last_key!=key:
             uniqueIndividuals+=1
-            reducerOutput(last_siteID,lastBackgroundID,count)
-            (last_siteID,lastBackgroundID,count) = (siteID,backgroundID,int(val))
+            reducerOutput(last_key,count)
+            (last_key,count) = (key,int(val))
         else:
-            (last_siteID,lastBackgroundID,count) = (siteID,backgroundID,count+int(val))
+            (last_key,count) = (key,count+int(val))
 
-    if(last_siteID and lastBackgroundID):
+    if(last_key):
         uniqueIndividuals+=1
-        reducerOutput(last_siteID,lastBackgroundID,count)
+        reducerOutput(last_key,count)
     print "count: ",uniqueIndividuals
 
-def reducerOutput(siteID, backgroundID, num):
-    print "%s\t%s\t%s" % (siteID,backgroundID,num)
+def reducerOutput(key, num):
+    print key, "\t", num
 
-def local():
-    uniqueIndividuals = 0
-    (last_siteID, lastBackgroundID, count) = (None, None, 0)
-    filePath = "output1.txt"
-    with open(filePath,"r") as f:
-        for line in f:
-            (siteID, backgroundID, val) = line.strip().split("\t")
-            if last_siteID and lastBackgroundID and (last_siteID!=siteID or lastBackgroundID!=backgroundID):
-                uniqueIndividuals+=1
-                reducerOutput(last_siteID,lastBackgroundID,count)
-                (last_siteID,lastBackgroundID,count) = (siteID,backgroundID,int(val))
-            else:
-                (last_siteID,lastBackgroundID,count) = (siteID,backgroundID,count+int(val))
-        if(last_siteID and lastBackgroundID):
-            uniqueIndividuals+=1
-            reducerOutput(last_siteID,lastBackgroundID,count)
-    print "count: ", uniqueIndividuals
+#def local():
+#    uniqueIndividuals = 0
+#    (last_key, count) = (None, 0)
+#    filePath = "output1.txt"
+#    with open(filePath,"r") as f:
+#        for line in f:
+#            (key, val) = line.strip().split("\t")
+#            if last_key and last_key!=key:
+#                uniqueIndividuals+=1
+#                reducerOutput(last_key,count)
+#                (last_key,count) = (key,int(val))
+#            else:
+#                (last_key,count) = (key,count+int(val))
+#        if(last_key):
+#            uniqueIndividuals+=1
+#            reducerOutput(last_key,count)
+#    print "count: ", uniqueIndividuals
 production()

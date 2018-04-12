@@ -5,4 +5,5 @@ medA	ArapahoeHouse	4	1
 medB	ArapahoeHouse	1	1
 medB	ArapahoeHouse	2	1
 medB	ArapahoeHouse	4	1
-medC	ArapahoeHouse	1	1
+medB	ArapahoeHouse	3	1
+medB	ArapahoeHouse	5	1

@@ -34,24 +34,29 @@ def local():
     with open(filePath,"r") as f:
         for line in f:
             (genericMedName, siteID, backgroundID, val) = line.strip().split("\t")
+            print genericMedName, siteID, backgroundID, val
             if last_genericMedName and (last_genericMedName!=genericMedName):
-                print "j",medicationHighestUniquePatientsCount, medicationHighestUniquePatients, len(personToMedication)
                 #check if the last count is greater than the current highest count
                 if len(personToMedication)>medicationHighestUniquePatientsCount:
                     print personToMedication
-                    print '\t',last_genericMedName, genericMedName, len(personToMedication), medicationHighestUniquePatients, medicationHighestUniquePatientsCount
                     medicationHighestUniquePatients = last_genericMedName
                     medicationHighestUniquePatientsCount = len(personToMedication)
                     (last_genericMedName,last_siteID, lastBackgroundID, count) = (genericMedName,siteID,backgroundID,int(val))
+                    print '\t',last_genericMedName, genericMedName, len(personToMedication), medicationHighestUniquePatients, medicationHighestUniquePatientsCount
                     personToMedication.clear()
-                    print len(personToMedication)
+                    personToMedication[(siteID,backgroundID)] = 1
                 else:
-                    personToMedication.clear()
                     (last_genericMedName,last_siteID, lastBackgroundID, count) = (genericMedName,siteID,backgroundID,int(val))
                     personToMedication[(siteID,backgroundID)] = 1
+                print "j",medicationHighestUniquePatientsCount, medicationHighestUniquePatients, len(personToMedication)
             else:
                 personToMedication[(siteID,backgroundID)] = 1
                 (last_genericMedName,last_siteID, lastBackgroundID, count) = (genericMedName,siteID,backgroundID,int(val))
+            print personToMedication
             #reducerOutput(last_siteID,lastBackgroundID,count)
+        if len(personToMedication)>medicationHighestUniquePatientsCount:
+            print personToMedication
+            medicationHighestUniquePatients = last_genericMedName
+            medicationHighestUniquePatientsCount = len(personToMedication)
         print "count: ", medicationHighestUniquePatients, medicationHighestUniquePatientsCount
 local()
