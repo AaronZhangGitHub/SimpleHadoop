@@ -1,5 +1,4 @@
 #!/usr/bin/python
-#!/usr/bin/python
 
 import re
 import sys
@@ -7,39 +6,42 @@ import sys
 
 def production():
     uniqueIndividuals = 0
-    (last_siteID, lastBackgroundID, count) = (None, None, None,0)
+    (lastKey, lastMedicine, count) = (None, None, 0)
     for line in sys.stdin:
-        (siteID, backgroundID, medication, val) = line.strip().split("\t")
-        if last_siteID and lastBackgroundID and (last_siteID!=siteID or lastBackgroundID!=backgroundID) and medication == "lithium":
-            reducerOutput(last_siteID,lastBackgroundID,count)
-            (last_siteID,lastBackgroundID,count) = (siteID,backgroundID,int(val))
+        splitLine = line.strip().split("\t")
+        keyLine = splitLine[0].split(",")
+        key = keyLine[0]
+        medicine = keyLine[1]
+        val = splitLine[1]
+        if key!=lastKey and medicine == "Lithium Carbonate":
+            #reducerOutput(key,medicine,val)
+            (lastKey,lastMedicine,count) = (key,medicine,int(val))
             uniqueIndividuals+=1
-        else:
-            (last_siteID,lastBackgroundID,count) = (siteID,backgroundID,count+int(val))
-
-    if(last_siteID and lastBackgroundID) and medication == "lithium":
-        reducerOutput(last_siteID,lastBackgroundID,count)
+    if lastKey and medicine == "Lithium Carbonate":
+        #reducerOutput(lastKey,lastMedicine,count)
         uniqueIndividuals+=1
     print uniqueIndividuals
 
-def reducerOutput(siteID, backgroundID, num):
-    print "%s\t%s\t%s" % (siteID,backgroundID,num)
+def reducerOutput(lastKey,lastMedicine,count):
+    print "%s\t%s\t%s" % (lastKey,lastMedicine,count)
 
-def local():
-    uniqueIndividuals = 0
-    (last_siteID, lastBackgroundID, count) = (None, None, 0)
-    filePath = "output2.txt"
-    with open(filePath,"r") as f:
-        for line in f:
-            (siteID, backgroundID, medication, val) = line.strip().split("\t")
-            if last_siteID and lastBackgroundID and (last_siteID!=siteID or lastBackgroundID!=backgroundID) and medication == "lithium":
-                reducerOutput(last_siteID,lastBackgroundID,count)
-                (last_siteID,lastBackgroundID,count) = (siteID,backgroundID,int(val))
-                uniqueIndividuals+=1
-            else:
-                (last_siteID,lastBackgroundID,count) = (siteID,backgroundID,count+int(val))
-        if(last_siteID and lastBackgroundID) and medication == "lithium":
-            reducerOutput(last_siteID,lastBackgroundID,count)
-            uniqueIndividuals+=1
-    print uniqueIndividuals
-local()
+#def local():
+#    uniqueIndividuals = 0
+#    (lastKey, lastMedicine, count) = (None, None, 0)
+#    filePath = "output2.txt"
+#    with open(filePath,"r") as f:
+#        for line in f:
+#            splitLine = line.strip().split("\t")
+#            keyLine = splitLine[0].split(",")
+#            key = keyLine[0]
+#            medicine = keyLine[1]
+#            val = splitLine[1]
+#            if key!=lastKey and medicine == "Lithium Carbonate":
+                #reducerOutput(key,medicine,val)
+#                (lastKey,lastMedicine,count) = (key,medicine,int(val))
+#                uniqueIndividuals+=1
+#        if lastKey and medicine == "Lithium Carbonate":
+            #reducerOutput(lastKey,lastMedicine,count)
+#            uniqueIndividuals+=1
+#    print uniqueIndividuals
+production()
