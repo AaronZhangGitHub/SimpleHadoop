@@ -1,0 +1,13 @@
+ArapahoeHouse,1,Lithium Carbonate	1
+ArapahoeHouse,1,Lithium	1
+ArapahoeHouse,2,Lithium	1
+ArapahoeHouse1,1,clorazepate	1
+ArapahoeHouse1,2,clorazepate	1
+ArapahoeHouse2,1,clorazepate	1
+ArapahoeHouse3,2,clorazepate	1
+ArapahoeHouse3,2,clorazepate	1
+ArapahoeHouse3,3,clorazepate	1
+ArapahoeHouse3,3,clorazepate	1
+ArapahoeHouse4,3,clorazepate	1
+ArapahoeHouse4,4,clorazepate	1
+ArapahoeHouse4,4,clorazepate	1
